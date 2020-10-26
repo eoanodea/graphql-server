@@ -38,11 +38,11 @@ const Aliens = sequelize.define("aliens", {
 Aliens.sync({ force: true }).then(() => {
   _.times(10, (i) => {
     Aliens.create({
-      firstName: casual._first_name,
-      lastName: casual._last_name,
-      planet: casual.words,
+      firstName: casual.first_name,
+      lastName: casual.last_name,
+      planet: casual.word,
     });
   });
 });
 
-export { Friends };
+export { Friends, Aliens };

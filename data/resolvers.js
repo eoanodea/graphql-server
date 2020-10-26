@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Friends } from "./db";
+import { Friends, Aliens } from "./db";
 
 /**
  * Resolver map
@@ -8,6 +8,10 @@ export const resolvers = {
   Query: {
     getFriend: ({ id }) => {
       return new Friend(id, friendDatabase[id]);
+    },
+
+    getAliens: () => {
+      return Aliens.findAll();
     },
   },
   Mutation: {
