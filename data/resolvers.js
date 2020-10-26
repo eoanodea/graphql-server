@@ -6,10 +6,14 @@ import { Friends, Aliens } from "./db";
  */
 export const resolvers = {
   Query: {
-    getFriend: ({ id }) => {
-      return new Friend(id, friendDatabase[id]);
+    getOneFriend: (root, { id }) => {
+      return new Promise((resolve, reject) => {
+        Friends.findById(id, (err, friend) => {
+          if (err) reject(err);
+          else resolve(friend);
+        });
+      });
     },
-
     getAliens: () => {
       return Aliens.findAll();
     },
