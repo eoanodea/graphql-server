@@ -1,6 +1,7 @@
-import { buildSchema } from "graphql";
+import { resolvers } from "./resolvers";
+import { makeExecutableSchema } from "graphql-tools";
 
-const schema = buildSchema(`
+const typeDefs = `
     type Friend {
         id: ID
         firstName: String
@@ -9,11 +10,18 @@ const schema = buildSchema(`
         age: Int
         language: String
         email: String
-        contacts: [Contacts]
+        contacts: [Contact]
     }
 
-    type Contacts {
-        fristName: String
+    type Alien {
+        id: ID
+        firstName: String
+        lastName: String
+        planet: String
+    }
+
+    type Contact {
+        firstName: String
         lastName: String
     }
 
@@ -29,7 +37,7 @@ const schema = buildSchema(`
 
     input FriendInput {
         id: ID
-        firstName: String
+        firstName: String!
         lastName: String
         gender: Gender
         age: Int
@@ -39,13 +47,17 @@ const schema = buildSchema(`
     }
 
     input ContactInput {
-        fristName: String
-        lastName: String
+        firstName: String
+        lastName: String 
     }
 
     type Mutation {
         createFriend(input: FriendInput): Friend
+        updateFriend(input: FriendInput): Friend
+        deleteFriend(id: ID!): String
     }
-`);
+`;
 
-export default schema;
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+export { schema };
