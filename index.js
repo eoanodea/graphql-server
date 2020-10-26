@@ -1,20 +1,24 @@
-import express from 'express';
-import graphqlHTTP from 'express-graphql';
-import schema from './schema';
-import resolvers from './resolvers';
+import express from "express";
+import graphqlHTTP from "express-graphql";
+import schema from "./schema";
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('GraphQL is amazing!');
+app.get("/", (req, res) => {
+  res.send("GraphQL is amazing!");
 });
 
-const root = resolvers;
+const root = { hello: () => "Hello World" };
 
-app.use('/graphql', graphqlHTTP({
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema: schema,
     rootValue: root,
     graphiql: true,
-}));
+  })
+);
 
-app.listen(8080, () => console.log('Running server on port localhost:8080/graphql'));
+app.listen(8080, () =>
+  console.log("Running server on port localhost:8080/graphql")
+);
